@@ -1,6 +1,5 @@
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
 local Window = Rayfield:CreateWindow({
-    
    Name = "Smooop ebik gui",
    LoadingTitle = "Smoop do som test",
    LoadingSubtitle = "by smop",
@@ -18,22 +17,22 @@ local Tab = Window:CreateTab("Settings", 4483362458) -- Title, Image
        end,
     })
 
+    local Keybind = Tab:CreateKeybind({
+       Name = "Destroy Gui",
+       CurrentKeybind = "CTRL + P",
+       HoldToInteract = false,
+       Flag = "Keybind1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+       Callback = function(Keybind)
+           Rayfield:Destroy()
+       end,
+    })
+
 --Teleports
 local Tab = Window:CreateTab("Teleports", 4483362458) -- Title, Image
-
-    local Dropdown = Tab:CreateDropdown({
-       Name = "Teleports",
-       Options = {"Hood Kicks", "Hood Fitness", "Admin Table", "Admin Weapons"},
-       CurrentOption = "Select location",
-       Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-       Callback = function(Value)
-            getgenv().TPP = Value
-       end
-    })
     
-        local Button = Tab:CreateButton({
-       Name = "Teleport",
-       Callback = function()
+    local Button = Tab:CreateButton({
+        Name = "Teleport",
+        Callback = function()
             if getgenv().TPP == "Hood Kicks" then
                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-189.752655, 21.7549973, -410.726807, -0.0571058802, -2.49452725e-08, 0.998368144, 1.21347377e-09, 1, 2.50554564e-08, -0.998368144, 2.64230726e-09, -0.0571058802)
             elseif getgenv().TPP == "Hood Fitness" then
@@ -46,14 +45,29 @@ local Tab = Window:CreateTab("Teleports", 4483362458) -- Title, Image
        end 
     })
 
---keybinds
-local Tab = Window:CreateTab("Keybinds", 4483362458)
-    local Keybind = Tab:CreateKeybind({
-       Name = "Destroy Gui",
-       CurrentKeybind = "CTRL + P",
-       HoldToInteract = false,
-       Flag = "Keybind1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-       Callback = function(Keybind)
-           Rayfield:Destroy()
+    local Dropdown = Tab:CreateDropdown({
+        Name = "Teleports",
+        Options = {"Hood Kicks", "Hood Fitness", "Admin Table", "Admin Weapons"},
+        CurrentOption = "Select location",
+        Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+        Callback = function(Value)
+            getgenv().TPP = Value
+       end
+    })
+
+    local Button = Tab:CreateButton({
+       Name = "Teleport to player",
+       Callback = function()
+            local Target = getgenv().pn
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[Target].Character.HumanoidRootPart.CFrame
        end,
+    })
+
+    local Input = Tab:CreateInput({
+        Name = "Target Player",
+        PlaceholderText = "Insert Player Name",
+        RemoveTextAfterFocusLost = false,
+        Callback = function(Text)
+            getgenv().pn = Text
+        end,
     })
