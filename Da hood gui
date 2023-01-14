@@ -1,5 +1,6 @@
 local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
 local Window = Rayfield:CreateWindow({
+    
    Name = "Smooop ebik gui",
    LoadingTitle = "Smoop do som test",
    LoadingSubtitle = "by smop",
@@ -8,21 +9,6 @@ local Window = Rayfield:CreateWindow({
       FolderName = nil, -- Create a custom folder for your hub/game
       FileName = "Big Hub"
    },
-   Discord = {
-      Enabled = false,
-      Invite = "ABCD", -- The Discord invite code, do not include discord.gg/
-      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
-   },
-   KeySystem = false, -- Set this to true to use our key system
-   KeySettings = {
-      Title = "Sirius Hub",
-      Subtitle = "Key System",
-      Note = "Join the discord (discord.gg/sirius)",
-      FileName = "SiriusKey",
-      SaveKey = true,
-      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-      Key = "Hello"
-   }
 })
 local Tab = Window:CreateTab("Settings", 4483362458) -- Title, Image
     local Button = Tab:CreateButton({
@@ -34,40 +20,32 @@ local Tab = Window:CreateTab("Settings", 4483362458) -- Title, Image
 
 --Teleports
 local Tab = Window:CreateTab("Teleports", 4483362458) -- Title, Image
-    local Button = Tab:CreateButton({
-       Name = "Teleport to Hood Kicks",
+
+    local Dropdown = Tab:CreateDropdown({
+       Name = "Teleports",
+       Options = {"Hood Kicks", "Hood Fitness", "Admin Table", "Admin Weapons"},
+       CurrentOption = "Select location",
+       Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+       Callback = function(Value)
+            getgenv().TPP = Value
+       end
+    })
+    
+        local Button = Tab:CreateButton({
+       Name = "Teleport",
        Callback = function()
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-189.752655, 21.7549973, -410.726807, -0.0571058802, -2.49452725e-08, 0.998368144, 1.21347377e-09, 1, 2.50554564e-08, -0.998368144, 2.64230726e-09, -0.0571058802)
+            if getgenv().TPP == "Hood Kicks" then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-189.752655, 21.7549973, -410.726807, -0.0571058802, -2.49452725e-08, 0.998368144, 1.21347377e-09, 1, 2.50554564e-08, -0.998368144, 2.64230726e-09, -0.0571058802)
+            elseif getgenv().TPP == "Hood Fitness" then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-76.3342133, 22.6983128, -631.127625, -0.999651492, 4.89974816e-09, 0.0263978466, 2.77437295e-09, 1, -8.05498175e-08, -0.0263978466, -8.04485154e-08, -0.999651492)
+            elseif getgenv().TPP == "Admin Table" then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-981.211243, -51.1561813, -1014.38452, 0.0275590084, 7.37214663e-08, -0.999620199, -4.05383958e-08, 1, 7.26318561e-08, 0.999620199, 3.85213355e-08, 0.0275590084)
+            elseif getgenv().TPP == "Admin Weapons" then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-797.121521, -39.6568565, -915.951477, 0.999809682, 0, 0.0195078477, 0, 1, 0, -0.0195078477, 0, 0.999809682)
+            end
        end 
     })
 
-    local Button = Tab:CreateButton({
-       Name = "Teleport to Bank",
-       Callback = function()
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-479.415253, 23.0900307, -283.838593, -0.05678197, -1.02838293e-07, -0.998386621, 2.63383146e-08, 1, -1.0450244e-07, 0.998386621, -3.22296749e-08, -0.05678197)
-       end 
-    })
-
-    local Button = Tab:CreateButton({
-       Name = "Teleport to Hood Fitness",
-       Callback = function()
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-76.3342133, 22.6983128, -631.127625, -0.999651492, 4.89974816e-09, 0.0263978466, 2.77437295e-09, 1, -8.05498175e-08, -0.0263978466, -8.04485154e-08, -0.999651492)
-       end 
-    })
-
-    local Button = Tab:CreateButton({
-       Name = "Teleport to Admin table",
-       Callback = function()
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-981.211243, -51.1561813, -1014.38452, 0.0275590084, 7.37214663e-08, -0.999620199, -4.05383958e-08, 1, 7.26318561e-08, 0.999620199, 3.85213355e-08, 0.0275590084)
-       end 
-    })
-
-    local Button = Tab:CreateButton({
-       Name = "Teleport to Admin weapons",
-       Callback = function()
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-797.121521, -39.6568565, -915.951477, 0.999809682, 0, 0.0195078477, 0, 1, 0, -0.0195078477, 0, 0.999809682)
-       end 
-    })
 --keybinds
 local Tab = Window:CreateTab("Keybinds", 4483362458)
     local Keybind = Tab:CreateKeybind({
